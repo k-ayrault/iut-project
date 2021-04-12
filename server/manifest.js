@@ -3,6 +3,7 @@
 const Dotenv = require('dotenv');
 const Confidence = require('@hapipal/confidence');
 const Toys = require('@hapipal/toys');
+const Schwifty = require('@hapipal/schwifty');
 
 // Pull .env into process.env
 Dotenv.config({ path: `${__dirname}/.env` });
@@ -34,7 +35,31 @@ module.exports = new Confidence.Store({
                 options: {}
             },
             {
+<<<<<<< HEAD
                 plugin: './plugins/swagger'
+=======
+                plugin: '@hapipal/schwifty',
+                options: {
+                    $filter: 'NODE_ENV',
+                    $default: {},
+                    $base: {
+                        migrateOnStart: true,
+                        knex: {
+                            client: 'sqlite3',
+                            useNullAsDefault: true,     // Suggested for sqlite3
+                            connection: {
+                                filename: ':memory:'
+                            },
+                            migrations: {
+                                stub: Schwifty.migrationsStubPath
+                            }
+                        }
+                    },
+                    production: {
+                        migrateOnStart: false
+                    }
+                }
+>>>>>>> 66973ef ((flavor) objection v3.0.0)
             },
             {
                 plugin: {
