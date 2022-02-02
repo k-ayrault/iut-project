@@ -13,14 +13,14 @@ module.exports = new Confidence.Store({
     server: {
         host: 'localhost',
         port: {
-            $param: 'PORT',
+            $env: 'PORT',
             $coerce: 'number',
             $default: 3000
         },
         debug: {
-            $filter: 'NODE_ENV',
+            $filter: { $env: 'NODE_ENV' },
             $default: {
-                log: ['error', 'start'],
+                log: ['error'],
                 request: ['error']
             },
             production: {
@@ -35,9 +35,9 @@ module.exports = new Confidence.Store({
                 options: {}
             },
             {
-<<<<<<< HEAD
                 plugin: './plugins/swagger'
-=======
+            },
+            {
                 plugin: '@hapipal/schwifty',
                 options: {
                     $filter: 'NODE_ENV',
@@ -45,10 +45,13 @@ module.exports = new Confidence.Store({
                     $base: {
                         migrateOnStart: true,
                         knex: {
-                            client: 'sqlite3',
+                            client: 'mysql',
                             useNullAsDefault: true,     // Suggested for sqlite3
                             connection: {
-                                filename: ':memory:'
+                                host     : process.env.DB_HOST || '127.0.0.1',
+                                user     : process.env.DB_USER || 'root',
+                                password : process.env.DB_PASSWORD || '',
+                                database : process.env.DB_DATABASE || 'node'
                             },
                             migrations: {
                                 stub: Schwifty.migrationsStubPath
@@ -59,12 +62,11 @@ module.exports = new Confidence.Store({
                         migrateOnStart: false
                     }
                 }
->>>>>>> 66973ef ((flavor) objection v3.0.0)
             },
             {
                 plugin: {
-                    $filter: 'NODE_ENV',
-                    $default: '@hapipal/hpal-debug',
+                    $filter: { $env: 'NODE_ENV' },
+                    $default: 'hpal-debug',
                     production: Toys.noop
                 }
             }
