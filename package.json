@@ -17,6 +17,7 @@
   "dependencies": {
     "@ayrault/iut-encrypt": "^1.0.0",
     "@hapi/boom": "9.x.x",
+    "@hapi/jwt": "^2.1.0",
     "@hapipal/haute-couture": "4.x.x",
     "@hapipal/schmervice": "^2.0.0",
     "@hapipal/schwifty": "6.x.x",
