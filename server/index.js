@@ -14,7 +14,6 @@ exports.deployment = async ({ start } = {}) => {
         server.log(['start'], `Server started at ${server.info.uri}`);
         return server;
     }
-
     await server.initialize();
 
     return server;
